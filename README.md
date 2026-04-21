@@ -37,7 +37,7 @@ python -m src.preprocess --input data/raw/clean.csv --output-dir data/processed
 ## 3) 训练模型
 
 ```bash
-python -m src.train --dataset data/processed/dataset.json --output-dir outputs --max-len 50
+python -m src.train --dataset data/processed/dataset.json --output-dir outputs --max-len 50 --weight-decay 1e-4
 ```
 
 ## 4) 生成推荐

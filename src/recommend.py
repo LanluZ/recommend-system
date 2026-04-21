@@ -33,7 +33,9 @@ def recommend(
 
     history = data["user_histories"].get(user)
     if not history:
-        raise ValueError(f"User not found: {user}")
+        raise ValueError(
+            f"User '{user}' not found in dataset. Please check keys in user_histories."
+        )
 
     history = history[-max_len:]
     input_ids = torch.tensor([[0] * (max_len - len(history)) + history], dtype=torch.long)

@@ -97,10 +97,10 @@ def train(args):
         num_heads=args.num_heads,
         dropout=args.dropout,
     ).to(device)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     criterion = nn.CrossEntropyLoss()
 
-    best_hit = -1.0
+    best_val_hit = -1.0
     args.output_dir.mkdir(parents=True, exist_ok=True)
     checkpoint = args.output_dir / "model.pt"
 
@@ -124,8 +124,8 @@ def train(args):
             f"val_hit@10={val_metrics['hit@10']:.4f} val_ndcg@10={val_metrics['ndcg@10']:.4f}"
         )
 
-        if val_metrics["hit@10"] >= best_hit:
-            best_hit = val_metrics["hit@10"]
+        if val_metrics["hit@10"] >= best_val_hit:
+            best_val_hit = val_metrics["hit@10"]
             torch.save(
                 {
                     "model_state": model.state_dict(),
@@ -160,6 +160,7 @@ def main():
     parser.add_argument("--num-heads", type=int, default=4)
     parser.add_argument("--dropout", type=float, default=0.2)
     parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--weight-decay", type=float, default=1e-4)
     args = parser.parse_args()
     train(args)
 

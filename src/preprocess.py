@@ -56,6 +56,8 @@ def build_datasets(input_csv: Path, output_dir: Path):
 
     for user, seq in user_histories_id.items():
         n = len(seq)
+        # Split policy: for length >=3, reserve last two interactions for val/test;
+        # for length ==2, reserve last one for test only.
         train_cut = n - 2 if n >= 3 else n - 1
 
         for t in range(1, train_cut):
