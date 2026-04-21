@@ -149,7 +149,7 @@ def train(args):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="训练Transformer序列推荐模型(SASRec)")
+    parser = argparse.ArgumentParser(description="Train Transformer sequential recommender (SASRec)")
     parser.add_argument("--dataset", type=Path, default=Path("data/processed/dataset.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
     parser.add_argument("--epochs", type=int, default=20)

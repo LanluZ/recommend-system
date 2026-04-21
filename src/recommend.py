@@ -33,7 +33,7 @@ def recommend(
 
     history = data["user_histories"].get(user)
     if not history:
-        raise ValueError(f"未找到用户: {user}")
+        raise ValueError(f"User not found: {user}")
 
     history = history[-max_len:]
     input_ids = torch.tensor([[0] * (max_len - len(history)) + history], dtype=torch.long)
@@ -54,7 +54,7 @@ def recommend(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="给指定用户输出电影推荐列表")
+    parser = argparse.ArgumentParser(description="Generate movie recommendations for a user")
     parser.add_argument("--dataset", type=Path, default=Path("data/processed/dataset.json"))
     parser.add_argument("--checkpoint", type=Path, default=Path("outputs/model.pt"))
     parser.add_argument("--user", required=True, type=str)

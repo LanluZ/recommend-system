@@ -12,7 +12,7 @@ def _read_rows(path: Path):
     with path.open("r", encoding="utf-8-sig", newline="") as file:
         reader = csv.DictReader(file)
         if not reader.fieldnames or not REQUIRED_COLUMNS.issubset(set(reader.fieldnames)):
-            raise ValueError(f"CSV缺少必要字段: {REQUIRED_COLUMNS}")
+            raise ValueError(f"CSV missing required columns: {REQUIRED_COLUMNS}")
         for row in reader:
             movie_id = str(row["电影id"]).strip()
             user = str(row["用户名"]).strip()
@@ -96,18 +96,18 @@ def build_datasets(input_csv: Path, output_dir: Path):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="检查并清洗电影推荐数据")
+    parser = argparse.ArgumentParser(description="Validate and preprocess movie recommendation data")
     parser.add_argument(
         "--input",
         type=Path,
         default=Path("data/raw/clean.csv"),
-        help="原始CSV路径",
+        help="Path to raw CSV file",
     )
     parser.add_argument(
         "--output-dir",
         type=Path,
         default=Path("data/processed"),
-        help="处理后数据目录",
+        help="Output directory for processed data",
     )
     args = parser.parse_args()
     build_datasets(args.input, args.output_dir)
