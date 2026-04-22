@@ -9,7 +9,10 @@ import json
 from pathlib import Path
 from typing import List
 
-from inference import RecommendationEngine
+try:
+    from .inference import RecommendationEngine, resolve_path
+except ImportError:
+    from inference import RecommendationEngine, resolve_path
 
 
 def load_user_histories(file_path: Path) -> dict:
@@ -130,7 +133,8 @@ def main():
     )
     
     # 加载数据集
-    with args.dataset.open("r", encoding="utf-8") as f:
+    dataset_path = resolve_path(args.dataset)
+    with dataset_path.open("r", encoding="utf-8") as f:
         dataset = json.load(f)
     
     # 执行对应操作

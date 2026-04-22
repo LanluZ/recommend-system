@@ -29,7 +29,11 @@ pip install -r requirements-deploy.txt
 #### 2. 使用核心推理模块
 
 ```python
-from inference import RecommendationEngine
+# 在项目根目录运行时
+from deploy.inference import RecommendationEngine
+
+# 在 deploy 目录运行时
+# from inference import RecommendationEngine
 
 # 初始化引擎
 engine = RecommendationEngine(
@@ -52,6 +56,7 @@ batch_results = engine.batch_recommend(histories, topk=5)
 #### 3. 命令行工具
 
 ```bash
+# 在项目根目录运行
 # 查看所有用户
 python -m deploy.cli --list-users
 
@@ -63,6 +68,9 @@ python -m deploy.cli --batch users.json --topk 5
 
 # 使用 GPU 推理
 python -m deploy.cli --user "Kaito" --gpu
+
+# 在 deploy 目录运行（等价命令）
+python -m cli --list-users
 ```
 
 **命令行参数：**
@@ -78,6 +86,7 @@ python -m deploy.cli --user "Kaito" --gpu
 #### 4. Flask API 服务
 
 ```bash
+# 在项目根目录运行
 # 启动 API 服务（默认：http://127.0.0.1:5000）
 python -m deploy.api
 
@@ -86,6 +95,9 @@ python -m deploy.api --gpu
 
 # 自定义端口
 python -m deploy.api --host 0.0.0.0 --port 8000
+
+# 在 deploy 目录运行（等价命令）
+python -m api --host 0.0.0.0 --port 8000
 ```
 
 ---

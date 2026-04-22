@@ -10,7 +10,10 @@ from typing import Tuple, Dict
 
 from flask import Flask, request, jsonify
 
-from inference import RecommendationEngine
+try:
+    from .inference import RecommendationEngine
+except ImportError:
+    from inference import RecommendationEngine
 
 
 class RecommendationAPI:
@@ -29,10 +32,9 @@ class RecommendationAPI:
             dataset_path=dataset_path,
             use_gpu=use_gpu,
         )
-        
-        # 加载数据集
-        with Path(dataset_path).open("r", encoding="utf-8") as f:
-            self.dataset = json.load(f)
+
+        # 复用已加载的数据集，避免路径基准不一致导致重复报错。
+        self.dataset = self.engine.dataset
         
         self._setup_routes()
     
