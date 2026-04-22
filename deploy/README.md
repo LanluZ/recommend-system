@@ -244,7 +244,7 @@ recs = engine.recommend([1, 2, 3], topk=10)
 
 ---
 
-### 🔧 配置说明
+### 配置说明
 
 #### 使用 GPU 推理
 
@@ -266,50 +266,6 @@ python -m deploy.cli \
   --model /path/to/model.onnx \
   --dataset /path/to/dataset.json \
   --user "Kaito"
-```
-
----
-
-### 故障排除
-
-**问题 1：找不到 ONNX Runtime**
-
-```
-ImportError: No module named 'onnxruntime'
-```
-
-**解决：** 安装 ONNX Runtime
-
-```bash
-pip install onnxruntime
-```
-
-**问题 2：模型文件不存在**
-
-```
-FileNotFoundError: outputs/model.onnx
-```
-
-**解决：** 先运行项目的训练流程生成 ONNX 模型
-
-```bash
-python -m src.train --dataset data/processed/dataset.json --output-dir outputs
-```
-
-**问题 3：GPU 推理失败**
-
-确保已安装 ONNX Runtime GPU 版本：
-
-```bash
-pip install onnxruntime-gpu
-```
-
-**问题 4：API 请求超时**
-
-检查网络配置，或调整 Flask 超时时间：
-
-```python
-api.app.config['JSON_TIMEOUT'] = 30
 ```
 
 ---
@@ -371,5 +327,3 @@ docker run -p 5000:5000 recommend-api
 | **Python API** | 灵活、易于集成 | 应用程序内部调用 |
 | **命令行工具** | 简单易用 | 脚本、离线处理 |
 | **HTTP API** | 通用、跨语言 | 微服务、分布式系统 |
-
-选择最适合你的部署方式！
