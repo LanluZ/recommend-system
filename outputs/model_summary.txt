@@ -1,0 +1,12 @@
+SASRec model summary
+====================
+max_len: 50
+hidden_size: 128
+num_layers: 2
+num_heads: 4
+dropout: 0.2
+ffn_dim: 512
+
+Flow:
+Input IDs -> Item/Position Embedding -> LayerNorm+Dropout ->
+Transformer Encoder Stack -> Last Valid Hidden -> Linear -> Logits
