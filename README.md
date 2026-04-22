@@ -170,27 +170,6 @@ python -m src.visualize --training-params outputs/training_params.json --output-
 python -m src.visualize --checkpoint outputs/model.pt --netron --browse
 ```
 
-## 常见问题
-
-### Q: 运行报错 `User 'XXX' not found in dataset`？
-
-**A:** 确保用户名存在于预处理后的数据中。检查 `data/processed/dataset.json` 中 `user_histories` 的 key。
-
-### Q: 训练指标全为 0？
-
-**A:** 这在小数据集（< 20 个样本）是正常现象。Hit@10 指标需要足够的验证样本和多样的序列长度。建议使用更大的数据集或调整 Top-K 值。
-
-### Q: 如何加速训练？
-
-**A:** 
-- 减小 `--max-len`（默认 50）
-- 增大 `--batch-size`（默认 64）
-- 减少 `--epochs`（默认 20）
-- 确保 GPU 可用（检查 PyTorch 输出中的 device）
-
-### Q: Netron 无法打开或图表混乱？
-
-**A:** 这是 Netron 对某些 Transformer 算子的渲染限制。脚本会自动导出 TorchScript，通常可以正常展示。如仍有问题，检查浏览器控制台的报错信息。
 
 ## 方法说明
 
